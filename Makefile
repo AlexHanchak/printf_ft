@@ -1,81 +1,68 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/15 15:45:30 by ohanchak          #+#    #+#              #
-#    Updated: 2022/12/27 16:16:45 by ohanchak         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME		= libftprintf.a
+CC			= gcc
+CFLAGS		= -Wall -Wextra -Werror
+RM 			= /bin/rm -f
 
+INCS_DIR	= ./includes
+LIBFT_DIR	= ./libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-SHELL=/bin/bash
+BUILD_DIR	= build
+SRC_DIR		= ./srcs
+SRCS		= 	ft_printf.c \
+				ft_printf_utils.c \
+				format_utils.c \
+				conversion_type.c \
+				conversion_flag.c \
+				conversion_width.c \
+				conversion_pcs.c \
+				misc/conversion_c.c \
+				misc/conversion_d.c \
+				misc/conversion_s.c \
+				misc/conversion_p.c \
+				misc/conversion_u.c \
+				misc/conversion_x.c
 
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-CC = gcc
-AR = ar rcs
-SRC_DIR = srcs
-INC_DIR = inc
-SRCB_DIR = srcb
-NAME = libftprintf.a
-LIBFT = libft/libft.a
-
-SRC = ft_printf.c			\
-		ft_format.c			\
-		ft_parse.c			\
-		ft_print_chars.c		\
-		ft_print_nbrs.c		\
-		ft_print_hex.c
-
-SRCB = ft_printf_bonus.c			\
-		ft_format_bonus.c			\
-		ft_parse_bonus.c			\
-		ft_print_chars_bonus.c		\
-		ft_print_nbrs_bonus.c		\
-		ft_print_hex_bonus.c
-
-OBJ = $(SRC):/%.o : $(SRC)/%.c
-
-OBJB = $(SRCB):.c=.o
+OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): create_dirs compile_libft
-	@$(AR) $(NAME) $(OBJ)
+$(NAME): $(OBJS) $(LIBFT)
+	@echo "Linking $@"
+	@ar rc $(NAME) $(OBJS)
+	@echo "Done!"
 
-/%.o: /%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS): $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	@echo "Compiling $<"
+	@$(CC) $(CFLAGS) -I $(INCS_DIR) -I $(LIBFT_DIR) -c $< -o $@
 
-bonus: create_dirs compile_libft
-	@$(AR) $(NAME) $(OBJB)
+$(LIBFT):
+	make -C $(LIBFT_DIR)
+	cp $(LIBFT) $(NAME)
 
-/%.o: /%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-compile_libft:
-	@if [ ! -d "libft" ]; then \
-		git clone https://github.com/AlexHanchak/lib.git; \
-	fi
-	@make all -C libft
-	@cp $(LIBFT) $(NAME)
+bonus: all
 
 clean:
-	@if [ -d "libft" ]; then \
-		make clean -C libft; \
-	fi
-	@$(RM) -r $(OBJ_DIR)
-	@$(RM) -r $(OBJB_DIR)
+	make clean -C $(LIBFT_DIR)
+	$(RM) -r $(BUILD_DIR)
+
+fclean: clean
+	make fclean -C $(LIBFT_DIR)
+	$(RM) $(NAME)
+
+re: fclean all
+
+rebonus: fclean bonus
+
+test: re
+	@$(CC) main.c -lftprintf -L . -I $(INCS_DIR) -o runner.out
+	@echo "\033[0;32m=== RUNNER ===\033[0m"
+	@./runner.out
+
+testmem: re
+	@$(CC) $(CFLAGS) main.c -lftprintf -L . -I $(INCS_DIR) -o runner.out
+	@echo "\033[0;32m=== RUNNER ===\033[0m"
+	@valgrind -q --leak-check=full --track-origins=yes ./runner.out
 	
-git:
-	git add .
-	git commit
-	git push
-
-re: fclean
-	@make all
-
-
-.PHONY: all clean fclean bonus re norminette compile_libft create_dirs test git
+.PHONY: all clean fclean re

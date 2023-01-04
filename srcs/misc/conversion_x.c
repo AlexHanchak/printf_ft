@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   conversion_x.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lex <lex@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/27 16:01:36 by ohanchak          #+#    #+#             */
-/*   Updated: 2022/12/27 16:02:38 by ohanchak         ###   ########.fr       */
+/*   Created: 2023/01/04 18:27:46 by lex               #+#    #+#             */
+/*   Updated: 2023/01/04 18:28:23 by lex              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/ft_printf.h"
+#include "libft.h"
+#include "tools.h"
 
-int main()
+char	*conversion_x(unsigned int nb, int is_upper)
 {
-	ft_printf("%d", 52);
-	return 0;
+	char	*hex;
+
+	hex = han_itoh(nb);
+	if (!hex)
+		return (NULL);
+	if (is_upper)
+		hex = han_strtouper(hex);
+	return (hex);
 }

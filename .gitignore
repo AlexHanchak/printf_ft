@@ -1,0 +1,9 @@
+.vscode/*
+.idea
+*Test*
+*TEST*
+*test*
+*.o
+*.out
+*.a
+main.c
