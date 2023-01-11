@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lex <lex@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:34:09 by lex               #+#    #+#             */
-/*   Updated: 2023/01/04 18:34:10 by lex              ###   ########.fr       */
+/*   Updated: 2023/01/09 16:19:37 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_memcmp(const void *str1, const void *str2, size_t n);
 
 int		ft_atoi(const char *nb);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t n, size_t size);
+void	ft_bzero(void *str, size_t n);
+void	*ft_calloc(size_t count, size_t	size);
 
 char	*ft_itoa(int n);
 void	ft_putchar_fd(char c, int fd);

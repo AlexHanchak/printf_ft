@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversion_pcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lex <lex@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:28:31 by lex               #+#    #+#             */
-/*   Updated: 2023/01/04 18:28:35 by lex              ###   ########.fr       */
+/*   Updated: 2023/01/11 15:52:58 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*conversion_pcs(char *cstr, t_format *f)
 {
 	char	*cfstr;
 
-	if (!f->dot)
+	if (!f->dot || f->type == 'c')
 		return (cstr);
-	if (f->type == 's' || f->type == 'c')
+	if (f->type == 's')
 		cfstr = format_pcs_str(cstr, f);
 	else
 		cfstr = format_pcs_digit(cstr, f);

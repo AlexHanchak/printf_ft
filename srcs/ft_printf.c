@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lex <lex@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:28:57 by lex               #+#    #+#             */
-/*   Updated: 2023/01/04 18:28:58 by lex              ###   ########.fr       */
+/*   Updated: 2023/01/11 15:56:26 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,13 @@ static int	print_format(va_list ap, t_format *f)
 	int		n;
 
 	cstr = conversion_type(ap, f);
+	// printf("[%s]\n", cstr);
 	cstr = conversion_flag(cstr, f);
+	// printf("[%s]\n", cstr);
 	cstr = conversion_pcs(cstr, f);
+	// printf("[%s]\n", cstr);
 	cstr = conversion_width(cstr, f);
+	// printf("[%s]\n", cstr);
 	if (f->type == 'c')
 		n = print_char(cstr, f->width);
 	else
