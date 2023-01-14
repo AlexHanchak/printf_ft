@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohanchak <ohanchak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 18:28:52 by lex               #+#    #+#             */
-/*   Updated: 2023/01/09 16:03:52 by ohanchak         ###   ########.fr       */
+/*   Created: 2023/01/04 18:28:52 by ohanchak          #+#    #+#             */
+/*   Updated: 2023/01/13 17:19:15 by ohanchak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	print_str(char *cstr, t_format *f)
 {
 	int		n;
 
+	n = 0;
 	if ((f->type == 's' && f->dot && f->pcs == 0) || (cstr[0] == 0))
 		return (printf_empty(cstr, f));
 	n = ft_strlen(cstr);

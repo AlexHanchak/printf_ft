@@ -1,6 +1,6 @@
 NAME		= libftprintf.a
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 RM 			= /bin/rm -f
 
 INCS_DIR	= ./includes
